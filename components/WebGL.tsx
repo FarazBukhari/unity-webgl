@@ -1,10 +1,12 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUnity } from "@fortawesome/free-brands-svg-icons";
 
-const unityContextLocation = "/unity/Build";
-const streamingAssestLocation = "unity/StreamingAssets";
-const fileName = "TestBuild";
+const unityContextLocation: string = "/unity/Build";
+const streamingAssestLocation: string = "unity/StreamingAssets";
+const fileName: string = "TestBuild";
 
 const WebGL = () => {
 	const { unityProvider, isLoaded, loadingProgression } = useUnityContext({
@@ -47,11 +49,8 @@ const WebGL = () => {
 		<div className='flex h-full w-full justify-center items-center'>
 			{!isLoaded && (
 				<div className='loading-overlay flex flex-col h-full w-full justify-center items-center text-white'>
-					<div
-						className='m-12 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white'
-						role='status'
-					>
-						<span className='!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]'>Loading...</span>
+					<div className='m-12'>
+						<FontAwesomeIcon icon={faUnity} className='text-6xl text-white animate-spin' style={{ transformOrigin: "center" }} />
 					</div>
 					<p>Loading build... ({loadingPercentage}%)</p>
 				</div>
