@@ -9,6 +9,9 @@ const streamingAssestLocation: string = "unity/StreamingAssets";
 const fileName: string = "TestBuild";
 
 const WebGL = () => {
+	const [devicePixelRatio, setDevicePixelRatio] = useState(window.devicePixelRatio);
+	const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
 	const { unityProvider, isLoaded, loadingProgression } = useUnityContext({
 		loaderUrl: `${unityContextLocation}/${fileName}.loader.js`,
 		dataUrl: `${unityContextLocation}/${fileName}.data.unityweb`,
@@ -16,8 +19,6 @@ const WebGL = () => {
 		codeUrl: `${unityContextLocation}/${fileName}.wasm.unityweb`,
 		streamingAssetsUrl: streamingAssestLocation,
 	});
-
-	const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
 	const loadingPercentage = Math.round(loadingProgression * 100);
 
@@ -36,6 +37,27 @@ const WebGL = () => {
 
 		setDimensions({ width, height });
 	};
+
+	useEffect(
+		function () {
+			// A function which will update the device pixel ratio of the Unity
+			// Application to match the device pixel ratio of the browser.
+			const updateDevicePixelRatio = function () {
+				setDevicePixelRatio(window.devicePixelRatio);
+			};
+			// A media matcher which watches for changes in the device pixel ratio.
+			const mediaMatcher = window.matchMedia(`screen and (resolution: ${devicePixelRatio}dppx)`);
+			// Adding an event listener to the media matcher which will update the
+			// device pixel ratio of the Unity Application when the device pixel
+			// ratio changes.
+			mediaMatcher.addEventListener("change", updateDevicePixelRatio);
+			return function () {
+				// Removing the event listener when the component unmounts.
+				mediaMatcher.removeEventListener("change", updateDevicePixelRatio);
+			};
+		},
+		[devicePixelRatio]
+	);
 
 	useEffect(() => {
 		calculateDimensions();
@@ -58,6 +80,7 @@ const WebGL = () => {
 			<Unity
 				unityProvider={unityProvider}
 				className='unity-canvas'
+				devicePixelRatio={devicePixelRatio}
 				style={{
 					height: `${dimensions.height}px`,
 					width: `${dimensions.width}px`,
