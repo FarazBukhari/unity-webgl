@@ -9,7 +9,7 @@ const streamingAssestLocation: string = "unity/StreamingAssets";
 const fileName: string = "TestBuild";
 
 const WebGL = () => {
-	const [devicePixelRatio, setDevicePixelRatio] = useState(window.devicePixelRatio);
+	const [devicePixelRatio, setDevicePixelRatio] = useState<number | null>(null);
 	const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
 	const { unityProvider, isLoaded, loadingProgression } = useUnityContext({
@@ -80,7 +80,7 @@ const WebGL = () => {
 			<Unity
 				unityProvider={unityProvider}
 				className='unity-canvas'
-				devicePixelRatio={devicePixelRatio}
+				devicePixelRatio={devicePixelRatio!}
 				style={{
 					height: `${dimensions.height}px`,
 					width: `${dimensions.width}px`,
