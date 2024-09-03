@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Unity WebGL with Next.js
 
-## Getting Started
+This project integrates Unity WebGL with a Next.js front end, providing a seamless way to run Unity games or simulations directly within a web application.
 
-First, run the development server:
+## 🌐 Live Demo
 
-```bash
+Check out the deployed version on Vercel: [Unity WebGL](https://faraz-unity-webgl.vercel.app/)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+-   [Node.js](https://nodejs.org/) (v18 or higher)
+-   [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
+
+### Installation
+
+Clone the repository and install dependencies:
+
+```shell
+git clone https://github.com/your-username/unity-webgl-nextjs.git
+cd unity-webgl-nextjs
+npm install
+# or
+yarn install
+```
+
+### Running Locally
+
+Start the development server:
+
+```shell
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+-   **`/unity`**: Contains the Unity WebGL build files.
+-   **`/components`**: React components used throughout the app.
+-   **`/pages`**: Next.js pages.
+-   **`/public`**: Static assets, including the Unity WebGL loader and data files.
 
-## Learn More
+## ✨ Features
 
-To learn more about Next.js, take a look at the following resources:
+-   **Unity Integration**: Run Unity games/simulations directly in the browser using WebGL.
+-   **Responsive Design**: The Unity canvas adapts to different screen sizes while maintaining the correct aspect ratio.
+-   **Loading Screen**: A custom loading screen with a spinning Unity logo while the WebGL build loads.
+-   **Deployed on Vercel**: Continuous deployment with Vercel, optimized for performance.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This project is deployed on the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme). To deploy your own version, follow these steps:
 
-## Deploy on Vercel
+1. Connect your GitHub repository to Vercel.
+2. Vercel will automatically build and deploy your project on every push to the `main` branch.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🧩 Unity WebGL Build
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+To update the Unity WebGL build:
+
+1. **Build in Unity**: Make sure to export your Unity project as a WebGL build.
+2. **Replace Files**: Copy the new build files into the `/public/unity/Build` directory.
+3. **Replace Streaming Assets**: Copy the new asset files into the `/public/unity/StreamingAssets` directory.
+4. **Commit & Deploy**: Push the changes to GitHub. Vercel will automatically redeploy the updated build.
+
+## 🎮 Usage
+
+To integrate your own Unity WebGL build, replace the files in the `/public/unity/Build` directory with your own Unity WebGL build files. Any included assets must be placed inside the `/public/unity/StreamingAssets` directory. The Next.js app is pre-configured to load these files.
+
+## 🛠️ Technologies Used
+
+-   **[Next.js](https://nextjs.org/)**: React framework for building web applications.
+-   **[Unity](https://unity.com/)**: Platform for creating and operating interactive, real-time 3D content.
+-   **[React Unity WebGl](https://react-unity-webgl.dev/)**: Displaying Unity WebGL components.
+-   **[Vercel](https://vercel.com/)**: Hosting platform for modern web projects.
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Open a Pull Request.
