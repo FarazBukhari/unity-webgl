@@ -55,6 +55,7 @@ const WebGL = () => {
 		} else {
 			console.error("Video URL not found in query parameters.");
 		}
+		//eslint-disable-next-line
 	}, [isLoaded]);
 
 	useEffect(() => {
