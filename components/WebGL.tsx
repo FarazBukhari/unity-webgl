@@ -3,15 +3,18 @@ import React, { useEffect, useState } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnity } from "@fortawesome/free-brands-svg-icons";
+import { useSearchParams } from "next/navigation";
 
 const unityContextLocation: string = "/unity/Build";
 const streamingAssestLocation: string = "unity/StreamingAssets";
-const fileName: string = "TestBuild";
+const fileName: string = "VrVideoPlayer";
 
 const WebGL = () => {
+	const search = useSearchParams();
+	const [videoUrl, setVideoUrl] = useState<string | null>(null);
 	const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-	const { unityProvider, isLoaded, loadingProgression } = useUnityContext({
+	const { unityProvider, isLoaded, loadingProgression, sendMessage } = useUnityContext({
 		loaderUrl: `${unityContextLocation}/${fileName}.loader.js`,
 		dataUrl: `${unityContextLocation}/${fileName}.data.unityweb`,
 		frameworkUrl: `${unityContextLocation}/${fileName}.framework.js.unityweb`,
@@ -44,6 +47,19 @@ const WebGL = () => {
 			window.removeEventListener("resize", calculateDimensions);
 		};
 	}, []);
+
+	useEffect(() => {
+		if (isLoaded && videoUrl) {
+			console.log("Sending message with url:: ", videoUrl, typeof videoUrl);
+			sendMessage("PlatformDetector", "TestJsCallBack", videoUrl);
+		} else {
+			console.error("Video URL not found in query parameters.");
+		}
+	}, [isLoaded]);
+
+	useEffect(() => {
+		setVideoUrl(search.get("video"));
+	}, [search]);
 
 	return (
 		<div className='flex h-full w-full justify-center items-center'>
