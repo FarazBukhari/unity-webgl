@@ -11,7 +11,7 @@ const fileName: string = "VrVideoPlayer";
 
 const WebGL = () => {
 	const search = useSearchParams();
-	const [videoUrl, setVideoUrl] = useState<string | null>(null);
+	const videoUrl = search.get("video");
 	const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
 	const { unityProvider, isLoaded, loadingProgression, sendMessage } = useUnityContext({
@@ -57,10 +57,6 @@ const WebGL = () => {
 		}
 		//eslint-disable-next-line
 	}, [isLoaded]);
-
-	useEffect(() => {
-		setVideoUrl(search.get("video"));
-	}, [search]);
 
 	return (
 		<div className='flex h-full w-full justify-center items-center'>

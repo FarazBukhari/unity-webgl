@@ -1,6 +1,7 @@
 import WebGL from "@/components/WebGL";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnity } from "@fortawesome/free-brands-svg-icons";
+import { Suspense } from "react";
 
 export default function Home() {
 	return (
@@ -10,7 +11,9 @@ export default function Home() {
 				<h1 className='text-lg text-white font-thin'>Unity WebGL</h1>
 			</div>
 			<div className='h-[90vh] w-[90vw]'>
-				<WebGL />
+				<Suspense>
+					<WebGL />
+				</Suspense>
 			</div>
 		</main>
 	);
