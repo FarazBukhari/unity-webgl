@@ -78,9 +78,10 @@
         // Send the video URL to Unity once it's ready
         if (videoUrl) {
           console.log('Sending message to Unity with video URL:', videoUrl);
-          unityInstance.SendMessage('PlatformDetector', 'TestJsCallBack', videoUrl);
+          unityInstance.SendMessage('PlatformDetector', 'TestJsCallBack', videoObj);
         } else {
-          console.error('Video URL not found in query parameters.');
+          //  unityInstance.SendMessage('PlatformDetector', 'TestJsCallBack', "");
+          //  console.Log('Video URL not found in query parameters.');
         }
 
       }).catch((message) => {
