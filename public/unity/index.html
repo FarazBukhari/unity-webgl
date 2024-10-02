@@ -47,7 +47,6 @@
     var canvasContainer = document.querySelector("#unity-canvas-container");
     var loadingBar = document.querySelector("#unity-loading-bar");
     var progressBarFull = document.querySelector("#unity-progress-bar-full");
-    var fullscreenButton = document.querySelector("#unity-fullscreen-button");
     var unityInstance = null;
 
     loadingBar.style.display = "block";
@@ -60,30 +59,26 @@
       }).then((instance) => {
         unityInstance = instance;
         loadingBar.style.display = "none";
-        if (fullscreenButton) {
-          fullscreenButton.onclick = () => {
-            unityInstance.SetFullscreen(1);
-          };
-        }
 
-        // Extract video URL from query parameters
         var urlParams = new URLSearchParams(window.location.search);
-        var videoUrl = urlParams.get('video');
-        // Call this function from JavaScript to invoke the TestJsCallBack function in Unity
-        function CallUnityTestCallback() {
-          var message = "Hello from JavaScript!";
-          console.log('Sending message to Unity with video URL:', message);
-          gameInstance.SendMessage('PlatformDetector', 'TestJsCallBack', videoUrl);
-        }
-        // Send the video URL to Unity once it's ready
-        if (videoUrl) {
-          console.log('Sending message to Unity with video URL:', videoUrl);
-          unityInstance.SendMessage('PlatformDetector', 'TestJsCallBack', videoObj);
-        } else {
-          //  unityInstance.SendMessage('PlatformDetector', 'TestJsCallBack', "");
-          //  console.Log('Video URL not found in query parameters.');
+        var urlParamsFound = Boolean(urlParams.get('video'));
+        console.log('urlParams:: ', urlParams);
+        var videoUrl = "VRSampleVideo/fiverr folder/Explore Birds and Animals_stereo.mp4";
+        videoUrl = videoUrl.replace(/ /g, "%20");
+        var currentType = "local";
+        if (urlParamsFound) {
+          currentType = "remote";
+          videoUrl = urlParams.get('video')
+          console.log('urlParams found:: ', videoUrl, currentType);
         }
 
+        var inputVideoObj = {
+          url: videoUrl,
+          type: currentType
+        };
+
+        console.log('Sending message to Unity with video URL:', videoUrl, 'and type:', currentType);
+        unityInstance.SendMessage('PlatformDetector', 'TestJsCallBack', JSON.stringify(inputVideoObj));
       }).catch((message) => {
         alert(message);
       });
