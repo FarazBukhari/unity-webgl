@@ -6,11 +6,11 @@ import { faUnity } from '@fortawesome/free-brands-svg-icons';
 
 const unityContextLocation: string = '/unity/Build';
 const streamingAssestLocation: string = 'unity/StreamingAssets';
-const fileName: string = 'VrVideoPlayer';
+const fileName: string = 'VrVideoPlayerTestJsCallBack';
 
 const WebGL = () => {
     // Default values for videoUrl and type
-    const localVideoFile = 'VRSampleVideo/Explore Birds and Animals_stereo.mp4';
+    const localVideoFile = 'VRSampleVideo/fiver folder/Explore Birds and Animals_stereo.mp4';
     const [videoUrl, setVideoUrl] = useState(localVideoFile);
     const [type, setType] = useState('local');
 
