@@ -4,7 +4,7 @@ This project integrates Unity WebGL with a Next.js front end, providing a seamle
 
 ## 🌐 Live Demo
 
-Check out the deployed version on Vercel: [Unity WebGL](https://faraz-unity-webgl.vercel.app/)
+Check out the deployed version on Vercel: [Unity WebGL](https://react-unity-sample.vercel.app/))
 
 ## 🚀 Getting Started
 
