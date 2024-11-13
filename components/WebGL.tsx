@@ -16,7 +16,7 @@ const WebGL = () => {
 
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-    const { unityProvider, isLoaded, loadingProgression, sendMessage } = useUnityContext({
+    const { unityProvider, isLoaded, loadingProgression, sendMessage, addEventListener, removeEventListener } = useUnityContext({
         loaderUrl: `${unityContextLocation}/${fileName}.loader.js`,
         dataUrl: `${unityContextLocation}/${fileName}.data.unityweb`,
         frameworkUrl: `${unityContextLocation}/${fileName}.framework.js.unityweb`,
@@ -88,11 +88,11 @@ const WebGL = () => {
     }, []);
 
     useEffect(() => {
-        window.addEventListener('PlayBtnCallBack', playButtonCallback);
+        addEventListener('PlayBtnCallBack', playButtonCallback);
         return () => {
-            window.removeEventListener('GameOver', playButtonCallback);
+            removeEventListener('GameOver', playButtonCallback);
         };
-    }, [window.addEventListener, window.removeEventListener, playButtonCallback]);
+    }, [addEventListener, removeEventListener, playButtonCallback]);
 
     return (
         <div className="flex h-full w-full flex-col justify-center items-center">
