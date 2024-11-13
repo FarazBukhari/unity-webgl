@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Unity, useUnityContext } from 'react-unity-webgl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUnity } from '@fortawesome/free-brands-svg-icons';
@@ -10,13 +10,14 @@ const fileName: string = 'VrVideoPlayer';
 
 const WebGL = () => {
     // Default values for videoUrl and type
-    const localVideoFile = 'VRSampleVideo/fiver folder/Explore Birds and Animals_stereo.mp4';
+    const localVideoFile = 'VRSampleVideo/fiverr folder/Explore Birds and Animals_stereo.mp4';
     const [videoUrl, setVideoUrl] = useState(localVideoFile);
     const [type, setType] = useState('local');
+    const fullscreenButtonRef = useRef<HTMLButtonElement>(null);
 
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-    const { unityProvider, isLoaded, loadingProgression, sendMessage, addEventListener, removeEventListener } = useUnityContext({
+    const { unityProvider, isLoaded, loadingProgression, sendMessage, addEventListener, removeEventListener, requestFullscreen } = useUnityContext({
         loaderUrl: `${unityContextLocation}/${fileName}.loader.js`,
         dataUrl: `${unityContextLocation}/${fileName}.data.unityweb`,
         frameworkUrl: `${unityContextLocation}/${fileName}.framework.js.unityweb`,
@@ -84,13 +85,18 @@ const WebGL = () => {
     };
 
     const playButtonCallback = useCallback(() => {
-        console.log('listener called');
+        //! for some reason requestFullscreen function does not trigger inside a hook
+        // requestFullscreen(true);
+
+        //* hidden fullscreen button click event triggered
+        fullscreenButtonRef.current?.click();
     }, []);
+    
 
     useEffect(() => {
         addEventListener('PlayBtnCallBack', playButtonCallback);
         return () => {
-            removeEventListener('GameOver', playButtonCallback);
+            removeEventListener('PlayBtnCallBack', playButtonCallback);
         };
     }, [addEventListener, removeEventListener, playButtonCallback]);
 
@@ -156,6 +162,7 @@ const WebGL = () => {
                     aspectRatio: '16/9'
                 }}
             />
+            <button style={{ display: 'none' }} ref={fullscreenButtonRef} onClick={() => requestFullscreen(true)}>Fullscreen</button>
         </div>
     );
 };
