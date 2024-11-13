@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Unity, useUnityContext } from 'react-unity-webgl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUnity } from '@fortawesome/free-brands-svg-icons';
@@ -82,6 +82,17 @@ const WebGL = () => {
         e.preventDefault();
         setVideoUrl(e.target.value);
     };
+
+    const playButtonCallback = useCallback(() => {
+        console.log('listener called');
+    }, []);
+
+    useEffect(() => {
+        addEventListener('PlayBtnCallBack', playButtonCallback);
+        return () => {
+            removeEventListener('GameOver', playButtonCallback);
+        };
+    }, [addEventListener, removeEventListener, playButtonCallback]);
 
     return (
         <div className="flex h-full w-full flex-col justify-center items-center">
