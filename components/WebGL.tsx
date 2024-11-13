@@ -92,7 +92,7 @@ const WebGL = () => {
         return () => {
             window.removeEventListener('GameOver', playButtonCallback);
         };
-    }, []);
+    }, [window.addEventListener, window.removeEventListener, playButtonCallback]);
 
     return (
         <div className="flex h-full w-full flex-col justify-center items-center">
