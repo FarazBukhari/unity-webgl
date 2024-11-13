@@ -6,7 +6,7 @@ import { faUnity } from '@fortawesome/free-brands-svg-icons';
 
 const unityContextLocation: string = '/unity/Build';
 const streamingAssestLocation: string = 'unity/StreamingAssets';
-const fileName: string = 'VrVideoPlayerTestJsCallBack';
+const fileName: string = 'VrVideoPlayer';
 
 const WebGL = () => {
     // Default values for videoUrl and type
@@ -88,9 +88,9 @@ const WebGL = () => {
     }, []);
 
     useEffect(() => {
-        addEventListener('PlayBtnCallBack', playButtonCallback);
+        window.addEventListener('PlayBtnCallBack', playButtonCallback);
         return () => {
-            removeEventListener('GameOver', playButtonCallback);
+            window.removeEventListener('GameOver', playButtonCallback);
         };
     }, [addEventListener, removeEventListener, playButtonCallback]);
 
